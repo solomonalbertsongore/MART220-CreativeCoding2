@@ -1,5 +1,6 @@
 var xPos = 1; 
 var ySpeed = 1; 
+var playerX = 185; 
 timer = 0; 
 
 function setup() 
@@ -16,20 +17,7 @@ function setup()
 function draw() 
 {
 
-  background(220);
-    
-  // fill (25, 176, 34); 
-  // square(40, 40, 150); 
-
-  // circle(100, 90, 75); 
-  // circle(250, 90, 75); 
-  // circle(400, 90, 75); 
-  
-
-  for (var i = 0; i < 5; i++)
-  {
-    //spawnMeteor(); 
-  }
+  background(220); 
 
   if(timer >= 5)
   {
@@ -45,11 +33,25 @@ function draw()
       timer++; 
   }
 
+  // Player movement.
+  if(keyIsPressed)
+    {
+      if (key == 'a')
+      {
+        playerX--; 
+      }
+      else if(key == 'd')
+      {
+        playerX++; 
+      }
+    }
 
-  
+  // Player color
+  fill (255, 0, 255); 
   // Player placeholder
-  square(185, 800, 100); 
+  square(playerX, 800, 100); 
 
+  fill (0, 0, 0); 
   // Text
   text('MEATiors', 20, 30);
   text('Solomon Albertson-Gore', 350, 925); 
@@ -59,6 +61,8 @@ function draw()
 function spawnMeteor()
 { 
 
+  // Meteor color
+  fill (0, 0, 0); 
   ellipse(xPos, ySpeed, 75, 75);
   ySpeed = ySpeed * 1.02; 
 
@@ -66,8 +70,9 @@ function spawnMeteor()
   // Haven't figured it out quite yet. 
   if(ySpeed >= 1000)
   {
-    xPos = 0; 
-    ySpeed = 0; 
+    // Assigns random position at the top
+    xPos = random(0, 500); 
+    // Resets the speed. 
+    ySpeed = 1; 
   }
-
 }
