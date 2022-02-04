@@ -2,11 +2,14 @@ var xPos = 1;
 var ySpeed = 1; 
 var playerX = 185; 
 var playerY = 800; 
-timer = 0; 
+var spawnTime = 10; 
 
 var steak; 
 var meatball; 
 var player; 
+
+var meats = []; 
+
 function preload()
 { 
   // Load the images before the page renders for the player and store them in a variable
@@ -29,26 +32,40 @@ function setup()
     button = createButton('Back'); 
     button.position(20, 925); 
 
+    meats[0] = steak; 
+    meats[1] = meatball; 
+    /*
+    meats[0] = image(steak, xPos, ySpeed);
+    meats[1] = image(meatball, xPos, ySpeed);
+    */
+
+    setInterval(spawnTimer, 1000); 
 }
   
 function draw() 
 {
 
   background(220);  
-
-  if(timer >= 5)
+  
+  if(spawnTime == 0)
   {
-    // xPos = random(0, 500); 
-    spawnMeteor(); 
-    timer = 0; 
-    
-  }
+    spawnTime = 10; 
 
-  while (timer < 5)
-  {
-      // Start timer
-      timer++; 
+    i = random(0, 2); 
+    image(meats[i], xPos, ySpeed); 
+    ySpeed = ySpeed * 1.02; 
+
+    if(ySpeed >= 1000)
+    {
+      // Assigns random position at the top
+      xPos = random(0, 500); 
+      // Resets the speed. 
+      ySpeed = 1; 
+    }
   }
+  
+  i = 1; 
+  image(meats[i], 200, 250);
 
   // Player movement.
   if(keyIsPressed)
@@ -71,14 +88,23 @@ function draw()
   text('MEATiors', 20, 30);
   text('Solomon Albertson-Gore', 350, 925); 
 
+  if(spawnTime <= 10)
+  {
+    text('0:' + spawnTime, 250, 250); 
+  }
 }
 
 function spawnMeteor()
 { 
 
   // MEATior. Eventually change to array that calls different types of meat. 
-  image(steak, xPos, ySpeed);
-  ySpeed = ySpeed * 1.02; 
+  // image(steak, xPos, ySpeed);
+  if (spawnTime == 10) 
+  {
+    i = 1; 
+    image(meats[i], xPos, ySpeed); 
+    ySpeed = ySpeed * 1.02; 
+  }
 
   // supposed to destroy object when it goes below screen. 
   // Haven't figured it out quite yet. 
@@ -88,5 +114,17 @@ function spawnMeteor()
     xPos = random(0, 500); 
     // Resets the speed. 
     ySpeed = 1; 
+  }
+}
+
+function spawnTimer()
+{
+  if(spawnTime > 0)
+    {
+      spawnTime--; 
+    }
+  if(spawnTime == 0)
+  {
+    spawnTime = 10; 
   }
 }
