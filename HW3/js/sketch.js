@@ -1,8 +1,10 @@
 var xPos = 1; 
 var ySpeed = 1; 
 var playerX = 185; 
-var playerY = 800; 
+var playerY = 750; 
 var spawnTime = 10; 
+
+let font; 
 
 var steak; 
 var meatball; 
@@ -10,17 +12,29 @@ var player;
 
 var meats = []; 
 
+var windowH; 
+var windowW; 
+
 function preload()
 { 
   // Load the images before the page renders for the player and store them in a variable
   steak = loadImage('./assets/imgs/steak.png'); 
   meatball = loadImage('./assets/imgs/meatballpng.png'); 
   player = loadImage('./assets/imgs/plant.png'); 
+  font = loadFont('./assets/fonts/bangers.ttf'); 
 }
 
 function setup() 
 {
-    var canvas = createCanvas(500, 950);
+    var canvas = createCanvas(displayWidth, displayHeight);
+
+    var windowH = window.displayHeight; 
+    var windowW = window.displayWidth; 
+
+
+
+    textFont(font); 
+    textSize(27);
 
     // Resize the images to your needs 
     steak.resize(125, 125); 
@@ -45,7 +59,7 @@ function setup()
 function draw() 
 {
 
-  background(220);  
+  background(225);  
   
   if(spawnTime == 0)
   {
@@ -85,8 +99,8 @@ function draw()
 
   fill (0, 0, 0); 
   // Text
-  text('MEATiors', 20, 30);
-  text('Solomon Albertson-Gore', 350, 925); 
+  text('MEATiors', 14, 30);
+  text('Solomon Albertson-Gore', 1600, 925); 
 
   if(spawnTime <= 10)
   {
