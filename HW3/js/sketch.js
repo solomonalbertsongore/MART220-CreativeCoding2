@@ -2,7 +2,7 @@ var xPos = 1;
 var ySpeed = 1; 
 var playerX = 185; 
 var playerY = 750; 
-var spawnTime = 10; 
+var spawnTime = 5; 
 
 let font; 
 
@@ -12,8 +12,13 @@ var player;
 
 var meats = []; 
 
+var bgColor = 100; 
 var windowH; 
 var windowW; 
+
+var r = 0;
+var b = 0;
+var g = 0;
 
 function preload()
 { 
@@ -22,10 +27,14 @@ function preload()
   meatball = loadImage('./assets/imgs/meatballpng.png'); 
   player = loadImage('./assets/imgs/plant.png'); 
   font = loadFont('./assets/fonts/bangers.ttf'); 
+  
+  i = random(0, meats.length);
 }
 
 function setup() 
-{
+{ 
+    xPos = random(0, 1000); 
+
     var canvas = createCanvas(displayWidth, displayHeight);
 
     var windowH = window.displayHeight; 
@@ -54,50 +63,35 @@ function setup()
     */
 
     setInterval(spawnTimer, 1000); 
+
 }
   
 function draw() 
 {
 
-  background(225);  
-  
-  if(spawnTime == 0)
+  background(bgColor);  
+
+  if(spawnTime == 5)
   {
-    spawnTime = 10; 
-
-    i = random(0, 2); 
-    image(meats[i], xPos, ySpeed); 
-    ySpeed = ySpeed * 1.02; 
-
-    if(ySpeed >= 1000)
-    {
-      // Assigns random position at the top
-      xPos = random(0, 500); 
-      // Resets the speed. 
-      ySpeed = 1; 
-    }
-  }
-  
-  i = 1; 
-  image(meats[i], 200, 250);
+    spawnMeteor(); 
+  } 
 
   // Player movement.
   if(keyIsPressed)
     {
       if (key == 'a')
       {
-        playerX--; 
+        playerX = playerX - 5; 
       }
       else if(key == 'd')
       {
-        playerX++; 
+        playerX = playerX + 5; 
       }
     }
 
   // PLAYER
   image(player, playerX, playerY); 
 
-  fill (0, 0, 0); 
   // Text
   text('MEATiors', 14, 30);
   text('Solomon Albertson-Gore', 1600, 925); 
@@ -112,20 +106,18 @@ function spawnMeteor()
 { 
 
   // MEATior. Eventually change to array that calls different types of meat. 
-  // image(steak, xPos, ySpeed);
-  if (spawnTime == 10) 
-  {
-    i = 1; 
-    image(meats[i], xPos, ySpeed); 
-    ySpeed = ySpeed * 1.02; 
-  }
-
+  //image(steak, xPos, ySpeed);
+  
+  image(meats[1], xPos, ySpeed); 
+  image(meats[0], xPos + 300, ySpeed); 
+  ySpeed = ySpeed * random(1, 1.02); 
+  
   // supposed to destroy object when it goes below screen. 
   // Haven't figured it out quite yet. 
   if(ySpeed >= 1000)
   {
     // Assigns random position at the top
-    xPos = random(0, 500); 
+    xPos = random(0, 1900); 
     // Resets the speed. 
     ySpeed = 1; 
   }
@@ -139,6 +131,16 @@ function spawnTimer()
     }
   if(spawnTime == 0)
   {
-    spawnTime = 10; 
+    spawnTime = 5; 
+  }
+}
+
+function changeColor()
+{
+  for(var i = 0; i < 5; i++)
+  {
+    r += 50; 
+    g += 50; 
+    b += 50; 
   }
 }
