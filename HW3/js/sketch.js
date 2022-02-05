@@ -4,21 +4,20 @@ var playerX = 185;
 var playerY = 750; 
 var spawnTime = 5; 
 
+// Variable to store font. 
 let font; 
 
+// Variables to store images
 var steak; 
 var meatball; 
 var player; 
 
+// Meteor array
 var meats = []; 
 
 var bgColor = 100; 
 var windowH; 
 var windowW; 
-
-var r = 0;
-var b = 0;
-var g = 0;
 
 function preload()
 { 
@@ -28,6 +27,7 @@ function preload()
   player = loadImage('./assets/imgs/plant.png'); 
   font = loadFont('./assets/fonts/bangers.ttf'); 
   
+  // Set i to a random value 
   i = random(0, meats.length);
 }
 
@@ -40,8 +40,7 @@ function setup()
     var windowH = window.displayHeight; 
     var windowW = window.displayWidth; 
 
-
-
+    // Set font and font size.
     textFont(font); 
     textSize(27);
 
@@ -69,11 +68,15 @@ function setup()
 function draw() 
 {
 
-  background(bgColor);  
+  background(200);  
 
+  // Meteor SHOULD spawn here. However right now it only appears when the timer hits 5. 
+  // I think this is because the function isn't creating a different object each time, they are 
+  // just always the same. Need to fix this so the function creates a new object each time (should use arrays for this). 
   if(spawnTime == 5)
   {
     spawnMeteor(); 
+    text('SPAWN METEOR', 850, 500); 
   } 
 
   // Player movement.
@@ -93,12 +96,12 @@ function draw()
   image(player, playerX, playerY); 
 
   // Text
-  text('MEATiors', 14, 30);
+  text('MEATeors', 14, 30);
   text('Solomon Albertson-Gore', 1600, 925); 
 
   if(spawnTime <= 10)
   {
-    text('0:' + spawnTime, 250, 250); 
+    text('0:' + spawnTime, 150, 30); 
   }
 }
 
@@ -132,15 +135,5 @@ function spawnTimer()
   if(spawnTime == 0)
   {
     spawnTime = 5; 
-  }
-}
-
-function changeColor()
-{
-  for(var i = 0; i < 5; i++)
-  {
-    r += 50; 
-    g += 50; 
-    b += 50; 
   }
 }
