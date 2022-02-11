@@ -1,6 +1,7 @@
 var xPos = []; 
 var startingX = 100; 
-var ySpeed = 1; 
+var ySpeed = []; 
+var startingYspeed = 1; 
 
 var playerX = 185; 
 var playerY = 750; 
@@ -21,7 +22,7 @@ var showImages = true;
 var windowH = window.displayHeight; 
 var windowW = window.displayWidth; 
 
-var randomMeat = []; 
+var randomMeat = [];
 
 function preload()
 { 
@@ -42,7 +43,7 @@ function windowResized()
 function setup() 
 {   
 
-    createCanvas(displayHeight - 20, displayWidth - 100);
+    createCanvas(displayWidth - 30, displayHeight - 140);
 
     for (var i = 0; i < 10; i++)
     {
@@ -50,10 +51,12 @@ function setup()
       startingX += 50;  
     }
 
-    for (var i = 0; i < 2; i++)
+    
+    for (var i = 0; i < 10; i++)
     {
-      randomMeat[i] = floor(random(0, meats.length));
+      ySpeed[i] = startingYspeed * random(0, 3);  
     }
+  
 
     // Set font and font size.
     textFont(font); 
@@ -70,6 +73,11 @@ function setup()
     meats[0] = steak; 
     meats[1] = meatball; 
 
+    for (var i = 0; i < 2; i++)
+    {
+      randomMeat[i] = floor(random(0, meats.length));
+    }
+
     setInterval(spawnTimer, 1000); 
 
 }
@@ -85,8 +93,11 @@ function draw()
   
   for(var i = 0; i < meats.length; i++)
   {
-    image(meats[floor(random(meats.length))], xPos[i], 100);
+    startingYspeed = ySpeed[i] * random(1, 1.02);
+    image(meats[randomMeat[i]], xPos[i], ySpeed[i]);
   }
+
+  
 
   // Player movement.
   if(keyIsPressed)
@@ -145,11 +156,21 @@ function spawnTimer()
   if(spawnTime > 0)
     {
       spawnTime--; 
-      showImages = true; 
+     // showImages = true; 
     }
   if(spawnTime == 0)
   {
     spawnTime = 5; 
-    showImages = false; 
+   // showImages = false; 
+    addMeat(); 
   }
 }
+
+function addMeat()
+{
+  meats.push(meats[floor(random(0, meats.length))]); 
+  randomMeat.push(floor(random(0, meats.length)));
+}
+
+
+// .pop to take away. Check each meats posotion with a for loop so it goes through the whole array. 
