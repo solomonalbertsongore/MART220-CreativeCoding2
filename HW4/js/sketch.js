@@ -45,13 +45,16 @@ function setup()
 
     createCanvas(displayWidth - 30, displayHeight - 140);
 
+
+    // Creates different spawn positions for meats
     for (var i = 0; i < 10; i++)
     {
       xPos[i] = random(0, 1000);
       startingX += 50;  
     }
 
-    
+    // This is supposed to move meatballs down the screen like they are "falling". 
+    // I think I need to use ANOTHER array for this, so that it's constanlty updating there position as well. 
     for (var i = 0; i < 10; i++)
     {
       ySpeed[i] = startingYspeed * random(0, 3);  
@@ -70,9 +73,11 @@ function setup()
     button = createButton('Back'); 
     button.position(20, 925); 
 
+    // Assigning meat images to array
     meats[0] = steak; 
     meats[1] = meatball; 
 
+    // Pulling a random meat from the array
     for (var i = 0; i < 2; i++)
     {
       randomMeat[i] = floor(random(0, meats.length));
@@ -93,10 +98,10 @@ function draw()
   
   for(var i = 0; i < meats.length; i++)
   {
-    startingYspeed = ySpeed[i] * random(1, 1.02);
+    // startingYspeed = ySpeed[i] * random(1, 1.02);
+    // image(meats[randomMeat[i]], xPos[i], ySpeed[i]);
     image(meats[randomMeat[i]], xPos[i], ySpeed[i]);
   }
-
   
 
   // Player movement.
@@ -166,11 +171,13 @@ function spawnTimer()
   }
 }
 
+// Adds a new meat to the array using .push, and then picks a random meat from the meats array to add.
 function addMeat()
 {
   meats.push(meats[floor(random(0, meats.length))]); 
   randomMeat.push(floor(random(0, meats.length)));
 }
+
 
 
 // .pop to take away. Check each meats posotion with a for loop so it goes through the whole array. 
