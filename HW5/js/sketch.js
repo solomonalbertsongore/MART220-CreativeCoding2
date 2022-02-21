@@ -55,7 +55,7 @@ function setup()
 
     for(var i = 0; i < frames.length; i++)
     {
-      meteor.push(new imageClass('./assets/imgs/meteor/' + frames[i], 0, 0)); 
+      meteor.push(new imageClass('./assets/imgs/meteor/' + frames[i], 150, 150)); 
       animation[i] = meteor[i].getImage(); 
     }
 
@@ -107,6 +107,7 @@ function draw()
   background(200);  
 
   image(animation[i], meteor[i].getX(), meteor[i].getY()); 
+  // image(animation[i], 150, 150); 
 
   // Meteor SHOULD spawn here. However right now it only appears when the timer hits 5. 
   // I think this is because the function isn't creating a different object each time, they are 
@@ -146,32 +147,6 @@ function draw()
   }
 }
 
-/*
-function spawnMeteor()
-{ 
-
-  // MEATior. Eventually change to array that calls different types of meat. 
-  //image(steak, xPos, ySpeed);
-
-  for(var i = 0; i < xPos.length; i++)
-  {
-    image(meats[i], xPos[i], 200); 
-  }
-
-  ySpeed = ySpeed * random(1, 1.02); 
-  
-  // supposed to destroy object when it goes below screen. 
-  // Haven't figured it out quite yet. 
-  if(ySpeed >= 1000)
-  {
-    // Assigns random position at the top
-    xPos = random(0, 1900); 
-    // Resets the speed. 
-    ySpeed = 1; 
-  }
-}
-*/
-
 function spawnTimer()
 {
   if(spawnTime > 0)
@@ -198,7 +173,7 @@ function increment()
 {
   i += 1; 
 
-  if(i > frames.length)
+  if(i >= frames.length)
   {
     i = 0; 
   }
