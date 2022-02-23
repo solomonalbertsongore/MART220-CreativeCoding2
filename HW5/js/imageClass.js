@@ -9,8 +9,9 @@ class imageClass
 
     getImage()
     {
-        var myImage = loadImage(this.path)
+        var myImage = loadImage(this.path);
         return myImage; 
+        // myImage.resize(125, 125); 
     }
     getX()
     {

@@ -2,6 +2,7 @@ var meteor = [];
 var animation = []; 
 var frames = []; 
 var i = 0; 
+var k = 0; 
 
 var xPos = []; 
 var startingX = 100; 
@@ -55,8 +56,10 @@ function setup()
 
     for(var i = 0; i < frames.length; i++)
     {
-      meteor.push(new imageClass('./assets/imgs/meteor/' + frames[i], 150, 150)); 
+      meteor.push(new imageClass('./assets/imgs/meteor/' + frames[i], 0, 0)); 
       animation[i] = meteor[i].getImage(); 
+
+      console.log("I am here.");
     }
 
 
@@ -82,7 +85,7 @@ function setup()
     // Resize the images to your needs 
     steak.resize(125, 125);   
     meatball.resize(125, 125); 
-    player.resize(125, 125); 
+    player.resize(125, 125);
 
     button = createButton('Back'); 
     button.position(20, 925); 
@@ -98,6 +101,7 @@ function setup()
     }
 
     setInterval(spawnTimer, 1000); 
+    setInterval(increment, 500);
 
 }
   
@@ -106,7 +110,10 @@ function draw()
 
   background(200);  
 
-  image(animation[i], meteor[i].getX(), meteor[i].getY()); 
+  console.log(k);
+
+  image(animation[k], meteor[k].getX(), meteor[k].getY()); 
+
   // image(animation[i], 150, 150); 
 
   // Meteor SHOULD spawn here. However right now it only appears when the timer hits 5. 
@@ -171,11 +178,11 @@ function addMeat()
 
 function increment() 
 {
-  i += 1; 
+  k += 1; 
 
-  if(i >= frames.length)
+  if(k >= frames.length)
   {
-    i = 0; 
+    k = 0; 
   }
 }
 
