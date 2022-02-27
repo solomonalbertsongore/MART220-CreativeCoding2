@@ -11,35 +11,37 @@ function setup()
     for(i = 0; i < 100; i++)
     {
         squares.push(new squareClass(x, y, size));
-        x += 5; 
-        y += 5; 
-        size += 5; 
+        x += 50; 
+        y += 50; 
+         size -= 5; 
     }
 
-    setInterval(changeColor, 1000); 
+    setInterval(timer, 1000); 
 }
 
 function draw()
 {   
     background('grey'); 
 
-    fill('red');
+    changeColor();
 
-    for (var i = 0; i < 75; i++)
+    for (var i = 0; i < 25; i++)
     { 
         squares[i].drawSquare(); 
     }
+
+    console.log(timerTime); 
 }
 
 function timer() 
 {
-    if (timerTime >= 5)
+    if (timerTime < 5)
     {
         timerTime++; 
-        changeColor(); 
     }
-    else 
+    else if (timerTime >= 5)
     {
+        changeColor(); 
         timerTime = 0; 
     }
 }
