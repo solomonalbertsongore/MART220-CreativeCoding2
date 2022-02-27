@@ -1,4 +1,4 @@
-#INCREMENTAL UPDATE
+# INCREMENTAL UPDATE
 
 Currently I am working on implementing classes and funtions more into my project. Right now I am 
 just trying to get a spawner to work that will spawn meteors after 5 seconds go by. Something is 
