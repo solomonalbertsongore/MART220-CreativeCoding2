@@ -48,11 +48,13 @@ function draw()
     // console.log(spawnTime); 
     // console.log(floor(random(circles.length))); 
 
+    
     for (var i = 0; i < circles.length; i++)
     {
         circles[floor(random(circles.length))].drawCircle();
         console.log(circles.length); 
     }
+    
 }
 
 function timer() 
@@ -88,4 +90,6 @@ function spawnCircle()
     }
     // circles[floor(random(circles.length))].drawCircle();
 }
+
+
 
