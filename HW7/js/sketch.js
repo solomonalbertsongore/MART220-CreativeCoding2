@@ -6,9 +6,18 @@ var size = 50;
 var meteors; 
 var meteorsString; 
 
-var sprite_sheet_image; 
-var sprite_sheet; 
+var character; 
+var characterX = 900; 
+var characterY = 900; 
+
+var box; 
+
+var sprite_sheet_idle; 
+var idle_animation; 
+
+var sprite_sheet_run; 
 var run_animation; 
+var run_animationX = 750; 
 
 var circles = []; 
 var circleX = 200; 
@@ -42,6 +51,13 @@ function setup()
         circles.push(new circleClass(random(0, 1900), circleY, random(15, 75)))
     }
 
+    character = createSprite(characterX, characterY); 
+    character.addAnimation('idle', idle_animation); 
+    character.addAnimation('run', run_animation);  
+
+    box = createSprite(400, 875); 
+    box.addAnimation('falling', meteors); 
+
 
     setInterval(timer, 1000); 
     setInterval(spawnCircle, 1000); 
@@ -51,11 +67,13 @@ function draw()
 {   
     background('grey'); 
 
-    // Calling the animations. 
-    animation(meteors, 500, 500); 
-    animation(idle_animation, 700, 900); 
-    
+    drawSprites(); 
+    playerMovement(); 
+    playerCollision(); 
 
+    // square(400, 875, 50)
+
+    
     // console.log(spawnTime); 
     // console.log(floor(random(circles.length))); 
 
@@ -65,6 +83,8 @@ function draw()
         circles[floor(random(circles.length))].drawCircle();
         console.log(circles.length); 
     }
+
+    
     
 }
 
@@ -100,6 +120,32 @@ function spawnCircle()
         // console.log("I am here"); 
     }
     // circles[floor(random(circles.length))].drawCircle();
+}
+
+function playerMovement()
+{
+    if(keyDown('d'))
+    {
+        character.changeAnimation('run'); 
+        character.setSpeed(3, 0); 
+        character.mirrorX(1); 
+    }
+    else if(keyDown('a'))
+    {
+        character.changeAnimation('run'); 
+        character.setSpeed(-3, 0); 
+        character.mirrorX(-1); 
+    }
+    else 
+    {
+        character.changeAnimation('idle'); 
+        character.setSpeed(0, 0);
+    }
+}
+
+function playerCollision()
+{
+    character.collide(box); 
 }
 
 
