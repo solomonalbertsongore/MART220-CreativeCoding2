@@ -10,7 +10,8 @@ var character;
 var characterX = 900; 
 var characterY = 900; 
 
-var box; 
+var boxes = []; 
+// var box; 
 
 var sprite_sheet_idle; 
 var idle_animation; 
@@ -54,9 +55,17 @@ function setup()
     character = createSprite(characterX, characterY); 
     character.addAnimation('idle', idle_animation); 
     character.addAnimation('run', run_animation);  
+    
+    boxes = new Group(); 
 
-    box = createSprite(400, 875); 
-    box.addAnimation('falling', meteors); 
+    for(var z = 0; z<5; z++)
+    {
+        var newBox = createSprite(random(100, 1000), 875); 
+        newBox.addAnimation('falling', meteors); 
+        newBox.addToGroup(boxes); 
+    }
+    //box = createSprite(400, 875); 
+    //box.addAnimation('falling', meteors); 
 
 
     setInterval(timer, 1000); 
@@ -68,6 +77,7 @@ function draw()
     background('grey'); 
 
     drawSprites(); 
+    drawSprites(boxes); 
     playerMovement(); 
     playerCollision(); 
 
@@ -145,7 +155,7 @@ function playerMovement()
 
 function playerCollision()
 {
-    character.collide(box); 
+    character.collide(boxes); 
 }
 
 
