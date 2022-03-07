@@ -10,8 +10,8 @@ var character;
 var characterX = 900; 
 var characterY = 900; 
 
-var boxes = []; 
-// var box; 
+// Change this to meteors at some point. This is your p5.play group. 
+var boxes; 
 
 var sprite_sheet_idle; 
 var idle_animation; 
@@ -52,21 +52,21 @@ function setup()
         circles.push(new circleClass(random(0, 1900), circleY, random(15, 75)))
     }
 
+    // Create the character sprite and add animations to it. 
     character = createSprite(characterX, characterY); 
     character.addAnimation('idle', idle_animation); 
     character.addAnimation('run', run_animation);  
     
+    // Creates a new group (basically an array) to hold the meteors in. 
     boxes = new Group(); 
 
+    // Add 5 meteors to the boxes group with the falling animation. 
     for(var z = 0; z<5; z++)
     {
         var newBox = createSprite(random(100, 1000), 875); 
         newBox.addAnimation('falling', meteors); 
         newBox.addToGroup(boxes); 
     }
-    //box = createSprite(400, 875); 
-    //box.addAnimation('falling', meteors); 
-
 
     setInterval(timer, 1000); 
     setInterval(spawnCircle, 1000); 
@@ -76,16 +76,11 @@ function draw()
 {   
     background('grey'); 
 
+    // Renders the sprites, and also adds player movement/collision. 
     drawSprites(); 
     drawSprites(boxes); 
     playerMovement(); 
     playerCollision(); 
-
-    // square(400, 875, 50)
-
-    
-    // console.log(spawnTime); 
-    // console.log(floor(random(circles.length))); 
 
     // Spawing the circle "meteors" at the top of the screen. 
     for (var i = 0; i < circles.length; i++)
@@ -93,9 +88,6 @@ function draw()
         circles[floor(random(circles.length))].drawCircle();
         console.log(circles.length); 
     }
-
-    
-    
 }
 
 function timer() 
@@ -106,12 +98,13 @@ function timer()
     }
     else if (timerTime >= 5)
     {
+        // Changes color every 5 seconds. 
         changeColor(); 
-        // spawnCircle(); 
         timerTime = 0; 
     }
 }
 
+// Changes things to randcom color. 
 function changeColor() 
 {
     fill (random(0, 255), random(0, 255), random(0, 255));
@@ -127,11 +120,10 @@ function spawnCircle()
     {
         circles.push(new circleClass(random(0, 1900), circleY, random(15, 75)));
         spawnTime = 5; 
-        // console.log("I am here"); 
     }
-    // circles[floor(random(circles.length))].drawCircle();
 }
 
+// Player movement using p5.play functions. 
 function playerMovement()
 {
     if(keyDown('d'))
@@ -153,6 +145,7 @@ function playerMovement()
     }
 }
 
+// Checks for player collision against any object in the "boxes" group. 
 function playerCollision()
 {
     character.collide(boxes); 
