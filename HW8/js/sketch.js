@@ -86,7 +86,6 @@ function draw()
     // drawSprites(boxes); 
     playerMovement(); 
     // playerCollision(); 
-    // drawCircle(); 
 
     /*
     for (var i = 0; i < circles.length; i++)
@@ -99,10 +98,17 @@ function draw()
     for (var i = 0; i < circles.length; i++)
     {   
         ellipse(circles[i].getX(), circles[i].getY(), circles[i].getSize());
-        circles[i].setY(y = y + 1); 
         // circles[floor(random(circles.length))].drawCircle();
         console.log(circles.length); 
     }
+
+    // figure out how to call the moveDown() function on each 
+    // specific circle, instead of all of them at once. Seperate them somehow. 
+    for (var m = 0; m < circles.length; m ++)
+    {
+        circles[0].moveDown(); 
+    }
+       
 
     smallMeteors();
 }

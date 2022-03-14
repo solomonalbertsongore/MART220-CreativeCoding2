@@ -29,7 +29,12 @@ class circleClass
 
     getSize()
     {
-        return this.y; 
+        return this.size; 
+    }
+
+    moveDown()
+    {
+        this.y = y++; 
     }
 
     drawCircle()
