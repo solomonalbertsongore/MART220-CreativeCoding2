@@ -74,6 +74,7 @@ function setup()
 
     setInterval(timer, 1000); 
     setInterval(spawnCircle, 1000); 
+    // setInterval(drawCircle, 1000); 
 }
 
 function draw()
@@ -85,13 +86,24 @@ function draw()
     // drawSprites(boxes); 
     playerMovement(); 
     // playerCollision(); 
+    // drawCircle(); 
 
-    // Spawing the circle "meteors" at the top of the screen. 
+    /*
     for (var i = 0; i < circles.length; i++)
     {
         circles[floor(random(circles.length))].drawCircle();
         console.log(circles.length); 
     }
+    */
+
+    for (var i = 0; i < circles.length; i++)
+    {   
+        ellipse(circles[i].getX(), circles[i].getY(), circles[i].getSize());
+        // circles[i].setY(y++); 
+        // circles[floor(random(circles.length))].drawCircle();
+        console.log(circles.length); 
+    }
+
 }
 
 function timer() 
@@ -126,6 +138,18 @@ function spawnCircle()
         spawnTime = 5; 
     }
 }
+
+/*
+function drawCircle()
+{
+        // Spawing the circle "meteors" at the top of the screen. 
+        for (var i = 0; i < circles.length; i++)
+        {
+            circles[floor(random(circles.length))].drawCircle();
+            console.log(circles.length); 
+        }
+}
+*/
 
 // Player movement using p5.play functions. 
 function playerMovement()
