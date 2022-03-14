@@ -7,11 +7,13 @@
 class Particle {
 
     constructor() {
-      this.x = 300;
-      this.y = 380;
-      this.vx = random(-1, 1);
-      this.vy = random(-5, -1);
+      this.x = random(0, 1900);
+      this.y = -100;
+      this.vx = random(-10, 10);
+      this.vy = random(-10, -1);
       this.alpha = 255;
+      var path = "./assets/imgs/meteors/boulder_10.png"; 
+      this.img = loadImage(path); 
     }
   
     finished() {
@@ -19,8 +21,8 @@ class Particle {
     }
   
     update() {
-      this.x += this.vx;
-      this.y += this.vy;
+      this.x -= this.vx;
+      this.y -= this.vy;
       this.alpha -= 5;
     }
   
@@ -28,7 +30,8 @@ class Particle {
       noStroke();
       //stroke(255);
       fill(255, this.alpha);
-      ellipse(this.x, this.y, 16);
+      // ellipse(this.x, this.y, 16);
+      image(this.img, this.x, this.y); 
     }
   
   }
