@@ -1,10 +1,11 @@
 class circleClass 
 {
-    constructor(x, y, size)
+    constructor(x, y, size, speed)
     {
         this.x = x; 
         this.y = y; 
         this.size = size; 
+        this.speed = speed; 
     }
 
     getX()
@@ -34,7 +35,7 @@ class circleClass
 
     moveDown()
     {
-        this.y = y++; 
+        this.y += this.speed; 
     }
 
     drawCircle()

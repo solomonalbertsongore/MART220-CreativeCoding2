@@ -51,7 +51,7 @@ function setup()
 
     for(i = 0; i < 1; i++)
     {
-        circles.push(new circleClass(random(0, 1900), circleY, random(15, 75)))
+        circles.push(new circleClass(random(0, 1900), circleY, random(15, 75), random(1, 5)))
     }
 
     // Create the character sprite and add animations to it. 
@@ -98,17 +98,16 @@ function draw()
     for (var i = 0; i < circles.length; i++)
     {   
         ellipse(circles[i].getX(), circles[i].getY(), circles[i].getSize());
+        circles[i].moveDown(); 
         // circles[floor(random(circles.length))].drawCircle();
         console.log(circles.length); 
-    }
-
-    // figure out how to call the moveDown() function on each 
-    // specific circle, instead of all of them at once. Seperate them somehow. 
-    for (var m = 0; m < circles.length; m ++)
-    {
-        circles[0].moveDown(); 
-    }
-       
+        
+        if(circles[i].getY() > 1080)
+        {
+            circles.splice(i, 1); 
+        } 
+        
+    }  
 
     smallMeteors();
 }
@@ -141,7 +140,7 @@ function spawnCircle()
     }
     else if (spawnTime <= 0)
     {
-        circles.push(new circleClass(random(0, 1900), circleY, random(15, 75)));
+        circles.push(new circleClass(random(0, 1900), circleY, random(15, 75), random(1, 5)));
         spawnTime = 5; 
     }
 }
