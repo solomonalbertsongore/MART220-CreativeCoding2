@@ -1,11 +1,22 @@
 class cubeObject 
 {
-    constructor(x, y, z)
+    constructor(boxWidth, boxHeight, boxDepth, boxX, boxY)
     {
-        this.x = x; 
-        this.y = y; 
-        this.z = z; 
+        this.boxWidth = boxWidth; 
+        this.boxHeight = boxHeight; 
+        this.boxDepth = boxDepth; 
+        this.boxX = boxX; 
+        this.boxY = boxY; 
+        this.boxZ = boxZ; 
+    }
+    
+    drawCube()
+    {
+        box(this.boxWidth, this.boxHeight, this.boxDepth); 
     }
 
-    
+    translateCube()
+    {
+        translate(this.boxX, this.boxY); 
+    }
 }
