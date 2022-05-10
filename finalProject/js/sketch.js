@@ -26,6 +26,7 @@ var run_animationX = 750;
  
 var timerTime = 0; 
 var spawnTime = 2; 
+var lifeTimer = 0; 
 
 let gameOver = false; 
 
@@ -66,22 +67,10 @@ function setup()
          newMeteor.addAnimation('falling', singleMeteor); 
          newMeteor.addToGroup(fallingSprites); 
      }
-    
-    // Creates a new group (basically an array) to hold the meteors in. 
-    /*
-    boxes = new Group(); 
-
-    // Add 5 meteors to the boxes group with the falling animation. 
-    for(var z = 0; z<5; z++)
-    {
-        var newBox = createSprite(random(100, 1000), 875); 
-        newBox.addAnimation('falling', meteors); 
-        newBox.addToGroup(boxes); 
-    }
-    */
 
     setInterval(timer, 1000); 
     setInterval(spawnCircle, 1000); 
+    setInterval(lifeTimer, 1000); 
     // setInterval(drawCircle, 1000); 
 }
 
@@ -89,10 +78,21 @@ function draw()
 {   
     background('grey'); 
 
+    /*
+    textSize(50); 
+    text("0:" + lifeTimer, 100, 100);
+    */
+
     if(gameOver)
     {
         textSize(50); 
         text('GAME OVER', 750, 480); 
+        text('Time survived: 0:' + lifeTimer, 700, 600); 
+    }
+
+    if(gameOver == false)
+    {
+        lifeTimer++; 
     }
 
     // Renders the sprites, and also adds player movement/collision. 
