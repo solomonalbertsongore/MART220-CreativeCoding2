@@ -27,6 +27,8 @@ var run_animationX = 750;
 var timerTime = 0; 
 var spawnTime = 2; 
 
+let gameOver = false; 
+
 function preload()
 {
     // Loading meteor animations so we can call it later. 
@@ -87,6 +89,12 @@ function draw()
 {   
     background('grey'); 
 
+    if(gameOver)
+    {
+        textSize(50); 
+        text('GAME OVER', 750, 480); 
+    }
+
     // Renders the sprites, and also adds player movement/collision. 
     drawSprites(); 
     // drawSprites(boxes); 
@@ -98,7 +106,8 @@ function draw()
     {
         // fallingSprites[i].remove();
         character.remove(); 
-        fallingSprites[fallingSprites.length].remove(); 
+        fallingSprites.removeSprites();  
+        gameOver = true; 
     } 
 
     // Make the falling sprites fall
