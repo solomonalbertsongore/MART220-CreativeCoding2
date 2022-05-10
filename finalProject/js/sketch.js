@@ -23,14 +23,9 @@ var idle_animation;
 var sprite_sheet_run; 
 var run_animation; 
 var run_animationX = 750; 
-
-var circles = []; 
-var circleX = 200; 
-var circleY = 70; 
-var circleSize = 100;
  
 var timerTime = 0; 
-var spawnTime = 5; 
+var spawnTime = 2; 
 
 function preload()
 {
@@ -51,11 +46,6 @@ function preload()
 function setup()
 {
     createCanvas(displayWidth - 30, displayHeight - 140);
-
-    for(i = 0; i < 1; i++)
-    {
-        circles.push(new circleClass(random(0, 1900), circleY, random(15, 75), random(1, 5)))
-    }
 
     // Create the character sprite and add animations to it. 
     character = createSprite(characterX, characterY); 
@@ -101,22 +91,8 @@ function draw()
     drawSprites(); 
     // drawSprites(boxes); 
     playerMovement(); 
-    // playerCollision(); 
-
-    
-    for (var i = 0; i < circles.length; i++)
-    {   
-        ellipse(circles[i].getX(), circles[i].getY(), circles[i].getSize());
-        circles[i].moveDown(); 
-        // circles[floor(random(circles.length))].drawCircle();
-        console.log(circles.length); 
-        
-        if(circles[i].getY() > 1080)
-        {
-            circles.splice(i, 1); 
-        } 
-        
-    }  
+    playerCollision(); 
+    endGame();   
 
     // Make the falling sprites fall
     for (var i = 0; i < fallingSprites.length; i++)
@@ -167,12 +143,11 @@ function spawnCircle()
     }
     else if (spawnTime <= 0)
     {
-        circles.push(new circleClass(random(0, 1900), circleY, random(15, 75), random(1, 5)));
         // Spawning sprites 
         var newMeteor = createSprite(random(100, 1000), 30); 
         newMeteor.addAnimation('falling', singleMeteor); 
         newMeteor.addToGroup(fallingSprites); 
-        spawnTime = 5; 
+        spawnTime = 2; 
     }
 }
 
@@ -204,6 +179,13 @@ function playerCollision()
     character.collide(fallingSprites); 
 }
 
+function endGame() 
+{
+    if(fallingSprites.collide(character))
+    {
+        console.log("HIT"); 
+    } 
+}
 /*
 // Calls the particle class creating the small meteor shower in the back. 
 function smallMeteors()
