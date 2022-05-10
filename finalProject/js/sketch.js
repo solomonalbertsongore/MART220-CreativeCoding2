@@ -91,13 +91,20 @@ function draw()
     drawSprites(); 
     // drawSprites(boxes); 
     playerMovement(); 
-    playerCollision(); 
-    endGame();   
+    // playerCollision(); 
+    // endGame();   
+
+    if(fallingSprites.collide(character))
+    {
+        // fallingSprites[i].remove();
+        character.remove(); 
+        fallingSprites[fallingSprites.length].remove(); 
+    } 
 
     // Make the falling sprites fall
     for (var i = 0; i < fallingSprites.length; i++)
     {   
-        fallingSprites[i].addSpeed(random(.1, .3), random(45, 90)); 
+        fallingSprites[i].addSpeed(random(.1, .3), random(45, 90));  
         
         // console.log("length: " + fallingSprites.length); 
         
@@ -179,6 +186,7 @@ function playerCollision()
     character.collide(fallingSprites); 
 }
 
+/*
 function endGame() 
 {
     if(fallingSprites.collide(character))
@@ -186,6 +194,8 @@ function endGame()
         console.log("HIT"); 
     } 
 }
+*/
+
 /*
 // Calls the particle class creating the small meteor shower in the back. 
 function smallMeteors()
