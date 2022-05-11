@@ -1,4 +1,4 @@
-const particles = []; 
+let bg; 
 
 var squares = []; 
 var x = 50; 
@@ -49,6 +49,7 @@ function preload()
 function setup()
 {
     createCanvas(displayWidth - 30, displayHeight - 140);
+    bg = loadImage('./assets/imgs/volcano.jpg'); 
 
     // Create the character sprite and add animations to it. 
     character = createSprite(characterX, characterY); 
@@ -75,8 +76,8 @@ function setup()
 }
 
 function draw()
-{   
-    background('grey'); 
+{    
+    background(bg); 
 
     /*
     textSize(50); 
@@ -85,6 +86,7 @@ function draw()
 
     if(gameOver)
     {
+        fill(255, 255, 255); 
         textSize(50); 
         text('GAME OVER', 750, 480); 
         text('Time survived: 0:' + lifeTimer, 700, 600); 
@@ -146,10 +148,12 @@ function timer()
 }
 
 // Changes things to randcom color. 
+/*
 function changeColor() 
 {
     fill (random(0, 255), random(0, 255), random(0, 255));
 }
+*/
 
 function spawnCircle()
 {
