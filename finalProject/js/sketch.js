@@ -45,7 +45,7 @@ function setup()
      // Add 5 meteors to the boxes group with the falling animation. 
      for(var z = 0; z < 1; z++)
      {
-         var newMeteor = createSprite(random(100, 1000), 30); 
+         var newMeteor = createSprite(random(100, 1000), 30);  
          newMeteor.addAnimation('falling', singleMeteor); 
          newMeteor.addToGroup(fallingSprites); 
      }
@@ -80,7 +80,8 @@ function draw()
     // Renders the sprites, and also adds player movement/collision. 
     drawSprites(); 
     playerMovement(); 
- 
+
+    // character.scale(2); -- breaks the game for some reason. 
 
     if(fallingSprites.collide(character))
     {
