@@ -1,5 +1,6 @@
 # INCREMENTAL UPDATE
 
-This homework went alright. The best use I could find for the particle system (so far) was to have "mini meteors" spawning in the back for a 
-graphical effect. I'm hoping to make it so that when the big ones collide with the ground or player they break up in the future. Also still trying 
-to work on the meteor movement right now. Getting closer, but still not fully functional. 
+I'm pretty happy with the final product! I think it'd like to make the meteors an actual class next time, but I'm 
+not quite sure how to do that with p5.play. I'd also like the timer to be in seconds in the future. Overall though, 
+I think it went well. Thank you for the wonderful class! I feel like my knowledge of classes, arrays, and object 
+oriented coding have all increased! 
