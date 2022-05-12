@@ -1,19 +1,9 @@
 let bg; 
 
-var squares = []; 
-var x = 50; 
-var y = 450; 
-var size = 50;
-
-var meteors; 
-var meteorsString; 
-
 var character; 
 var characterX = 900; 
 var characterY = 900; 
 
-// Change this to meteors at some point. This is your p5.play group. 
-var boxes; 
 // Falling meteors array
 var fallingSprites; 
 
@@ -23,27 +13,21 @@ var idle_animation;
 var sprite_sheet_run; 
 var run_animation; 
 var run_animationX = 750; 
- 
+
 var timerTime = 0; 
-var spawnTime = 2; 
+var spawnTime = .25; 
 var lifeTimer = 0; 
 
 let gameOver = false; 
 
 function preload()
-{
-    // Loading meteor animations so we can call it later. 
-    meteorsString = loadStrings('./assets/meteorString.txt'); 
-    meteors = loadAnimation('./assets/imgs/meteors/boulder_4.png', './assets/imgs/meteors/boulder_10.png'); 
-    singleMeteor = loadAnimation('./assets/imgs/meteors/boulder_10.png'); 
-    console.log('.assets/imgs/meteors/' + meteorsString); 
-    
+{ 
     // Loading character animations so we can call them later. 
     sprite_sheet_idle = loadSpriteSheet('./assets/imgs/character/characterIdle.png', 32, 32, 3); 
     idle_animation = loadAnimation(sprite_sheet_idle); 
     sprite_sheet_run = loadSpriteSheet('./assets/imgs/character/characterRun.png', 32, 32, 4); 
     run_animation = loadAnimation(sprite_sheet_run); 
-    
+    singleMeteor = loadAnimation('./assets/imgs/meteors/boulder_10.png'); 
 }
 
 function setup()
@@ -55,9 +39,6 @@ function setup()
     character = createSprite(characterX, characterY); 
     character.addAnimation('idle', idle_animation); 
     character.addAnimation('run', run_animation);  
-
-    fallingMeteor = createSprite(random(15, 1000), 40); 
-    fallingMeteor.addAnimation('falling', singleMeteor); 
 
     fallingSprites = new Group(); 
 
@@ -79,30 +60,27 @@ function draw()
 {    
     background(bg); 
 
-    /*
-    textSize(50); 
-    text("0:" + lifeTimer, 100, 100);
-    */
-
     if(gameOver)
     {
         fill(255, 255, 255); 
         textSize(50); 
         text('GAME OVER', 750, 480); 
-        text('Time survived: 0:' + lifeTimer, 700, 600); 
+        // lifeTimer = int(millis() / 1000); -- converts it to seconds but keeps the timer running for some reason. 
+        text('Time survived: ' + lifeTimer + ' milliseconds', 580, 600); 
     }
 
     if(gameOver == false)
     {
         lifeTimer++; 
+        fill(255, 0, 0); 
+        textSize(50); 
+        text('AVOID THE METEORS', 680, 75); 
     }
 
     // Renders the sprites, and also adds player movement/collision. 
     drawSprites(); 
-    // drawSprites(boxes); 
     playerMovement(); 
-    // playerCollision(); 
-    // endGame();   
+ 
 
     if(fallingSprites.collide(character))
     {
@@ -118,19 +96,14 @@ function draw()
         fallingSprites[i].addSpeed(random(.1, .3), random(45, 90));  
         
         // console.log("length: " + fallingSprites.length); 
-        
+        // Meteors should be destroyed here, but can't quite figure it out. Need a class for this to work to check the y value. 
         /*
         if(fallingSprites[i] > 1080)
         {
             fallingSprites.remove(i, 1); 
         } 
         */
-        
     }  
-    
-    fallingMeteor.addSpeed(.1, 45); 
-
-    // smallMeteors();
 }
 
 function timer() 
@@ -142,19 +115,11 @@ function timer()
     else if (timerTime >= 5)
     {
         // Changes color every 5 seconds. 
-        changeColor(); 
         timerTime = 0; 
     }
 }
 
-// Changes things to randcom color. 
-/*
-function changeColor() 
-{
-    fill (random(0, 255), random(0, 255), random(0, 255));
-}
-*/
-
+// Spawns the meteors
 function spawnCircle()
 {
     if (spawnTime > 0)
@@ -167,7 +132,7 @@ function spawnCircle()
         var newMeteor = createSprite(random(100, 1000), 30); 
         newMeteor.addAnimation('falling', singleMeteor); 
         newMeteor.addToGroup(fallingSprites); 
-        spawnTime = 2; 
+        spawnTime = .25; 
     }
 }
 
@@ -193,42 +158,9 @@ function playerMovement()
     }
 }
 
-// Checks for player collision against any object in the "boxes" group. 
+// Checks for player collision against meteors gruop. 
 function playerCollision()
 {
     character.collide(fallingSprites); 
 }
-
-/*
-function endGame() 
-{
-    if(fallingSprites.collide(character))
-    {
-        console.log("HIT"); 
-    } 
-}
-*/
-
-/*
-// Calls the particle class creating the small meteor shower in the back. 
-function smallMeteors()
-{
-    for (let i = 0; i < 1; i++) 
-    {
-      let p = new Particle();
-      particles.push(p);
-    }
-    for (let i = particles.length - 1; i >= 0; i--)
-     {
-      particles[i].update();
-      particles[i].show();
-      if (particles[i].finished()) 
-        {
-            // remove this particle
-            particles.splice(i, 1);
-        }
-     }
-     
-}
-*/
 
